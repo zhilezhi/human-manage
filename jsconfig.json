@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"types": [
+
+		],
+		"baseUrl": "./",
+		"paths": {
+			"@/*": ["./src/*"]
+		}
+	}
+}
