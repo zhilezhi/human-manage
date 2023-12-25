@@ -3,14 +3,26 @@ import { Button, Form, Image, Input } from "antd";
 import { SafetyOutlined, UserOutlined } from "@ant-design/icons";
 import userLoginIcon from "@/assets/images/user@2x.png";
 import userLoginBtn from "@/assets/images/loginBtn.png";
+import { userLoginApi } from "@/apis/index.js";
 const onFinish = (values) => {
   console.log("Success:", values);
+  userLoginApi({
+    account: "l11",
+    password: "b0baee9d279d34fa1dfd71aadb908c3f",
+    type: 2,
+  })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 const onFinishFailed = (errorInfo) => {
   console.log("Failed:", errorInfo);
 };
 const LoginForm = () => (
-  <div className="bg-gradient-to-r from-#77A1F2 to-#4378D7 w-[30%] h-full absolute right-0 center">
+  <div className="bg-gradient-to-t from-#77A1F2 to-#4378D7 w-[30%] h-full absolute right-0 center">
     <div>
       <div className="text-28px text-white mb-60px">恒成智慧学苑管理系统</div>
       <div className="text-white text-center center flex-col space-y-10px text-0">
