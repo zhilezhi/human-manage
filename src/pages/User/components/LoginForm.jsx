@@ -4,11 +4,12 @@ import { SafetyOutlined, UserOutlined } from "@ant-design/icons";
 import userLoginIcon from "@/assets/images/user@2x.png";
 import userLoginBtn from "@/assets/images/loginBtn.png";
 import { userLoginApi } from "@/apis/index.js";
+import md5 from "js-md5";
 const onFinish = (values) => {
-  console.log("Success:", values);
+  const { account, password } = values;
   userLoginApi({
-    account: "l11",
-    password: "b0baee9d279d34fa1dfd71aadb908c3f",
+    account,
+    password: md5(password),
     type: 2,
   })
     .then((res) => {
@@ -37,7 +38,7 @@ const LoginForm = () => (
       >
         <Form.Item
           label=""
-          name="username"
+          name="account"
           rules={[
             {
               required: true,

@@ -1,11 +1,13 @@
-import { createHashRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Layout from "@/pages/Layout/index.jsx";
 import Login from "@/pages/User/Login.jsx";
+import managerRoutes from "@/router/modules/manager.jsx";
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    children: managerRoutes,
   },
   {
     path: "/login",

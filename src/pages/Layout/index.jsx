@@ -8,12 +8,19 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu, Button, theme, Breadcrumb, Avatar } from "antd";
 import classNames from "classnames";
+import { Outlet, useNavigate } from "react-router-dom";
+import managerRoutes from "@/router/modules/manager.jsx";
 const { Header, Sider, Content } = Layout;
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const menuItems = managerRoutes.map((item) => ({ ...item, key: item.path }));
+
+  const navigate = useNavigate();
+
   return (
     <Layout className="h-screen">
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -24,23 +31,10 @@ const App = () => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["1"]}
-          items={[
-            {
-              key: "1",
-              icon: <UserOutlined />,
-              label: "nav 1",
-            },
-            {
-              key: "2",
-              icon: <VideoCameraOutlined />,
-              label: "nav 2",
-            },
-            {
-              key: "3",
-              icon: <UploadOutlined />,
-              label: "nav 3",
-            },
-          ]}
+          items={menuItems}
+          onSelect={({ key }) => {
+            navigate(key);
+          }}
         />
       </Sider>
       <Layout>
@@ -86,7 +80,7 @@ const App = () => {
             borderRadius: borderRadiusLG,
           }}
         >
-          Content
+          <Outlet />
         </Content>
       </Layout>
     </Layout>

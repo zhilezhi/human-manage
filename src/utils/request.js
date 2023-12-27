@@ -1,9 +1,9 @@
 import axios from "axios";
 import { notification } from "antd";
 
-const instance = axios.create({ baseURL: "https://live.hchabj.com/hcha" });
+const request = axios.create({ baseURL: "https://live.hchabj.com/hcha" });
 
-instance.interceptors.request.use(
+request.interceptors.request.use(
   (config) => {
     config.headers = {
       ...config.headers,
@@ -16,7 +16,7 @@ instance.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-instance.interceptors.response.use(
+request.interceptors.response.use(
   //状态码为2xx的时候执行
   (response) => {
     const { data } = response;
@@ -65,4 +65,4 @@ instance.interceptors.response.use(
   },
 );
 
-export default instance;
+export default request;
