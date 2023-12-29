@@ -18,37 +18,37 @@ const asyncComponents = (comp) => {
 };
 const managerRoutes = [
   {
-    label: "班级管理",
+    name: "班级管理",
     path: "manager/classes",
     element: asyncComponents(<ClassesIndex />),
   },
   {
-    label: "课程管理",
+    name: "课程管理",
     path: "manager/course",
     element: asyncComponents(<CourseIndex />),
   },
   {
-    label: "学生管理",
+    name: "学生管理",
     path: "manager/student",
     element: asyncComponents(<StudentIndex />),
   },
   {
-    label: "实训管理",
+    name: "实训管理",
     path: "manager/training",
     element: asyncComponents(<TrainingIndex />),
   },
   {
-    label: "活动管理",
+    name: "活动管理",
     path: "manager/activity",
     element: asyncComponents(<ActivityIndex />),
   },
   {
-    label: "实习/就业管理",
+    name: "实习/就业管理",
     path: "manager/employment",
     element: asyncComponents(<EmploymentIndex />),
   },
   {
-    label: "录播课管理",
+    name: "录播课管理",
     path: "manager/recordedCurriculum",
     element: asyncComponents(<RecordedCurriculumIndex />),
   },

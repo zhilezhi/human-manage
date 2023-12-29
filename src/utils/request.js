@@ -8,7 +8,7 @@ request.interceptors.request.use(
     config.headers = {
       ...config.headers,
       Authorization: localStorage.getItem("Authorization") || "",
-      "Content-Type": "multipart/form-data",
+      // "Content-Type": "multipart/form-data",
     };
 
     return config;

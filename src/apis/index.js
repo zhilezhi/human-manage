@@ -1,2 +1,1 @@
-export * from "./test.js";
-export * from "./classes.js";
+export * from "./manager.js";
