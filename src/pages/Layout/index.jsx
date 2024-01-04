@@ -15,10 +15,11 @@ export default () => {
   return (
     <ProConfigProvider dark={false}>
       <ProLayout
+        title="恒成智慧学苑"
         siderWidth={216}
         {...defaultProps}
         breadcrumbRender={(routers = []) => {
-          console.log(routers);
+          // console.log(routers);
           return [
             {
               path: "/",
@@ -38,7 +39,6 @@ export default () => {
         menuItemRender={(item, dom) => (
           <div
             onClick={() => {
-              console.log(item);
               // setPathname(item.path || "/welcome");
               navigate(item.path);
             }}

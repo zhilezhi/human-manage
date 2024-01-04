@@ -7,16 +7,25 @@ export function userLoginApi(data) {
     data,
   });
 }
-export function collegeListApi() {
+export function collegeListApi(data) {
   return request({
     url: "college/getList",
-    method: "get",
+    method: "POST",
+    data,
   });
 }
 
 export function classesListApi(data) {
   return request({
     url: "/collegeclass/getList",
+    method: "POST",
+    data,
+  });
+}
+
+export function majorListApi(data) {
+  return request({
+    url: "/collegemajor/getList",
     method: "POST",
     data,
   });

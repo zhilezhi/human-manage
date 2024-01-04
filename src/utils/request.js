@@ -8,7 +8,7 @@ request.interceptors.request.use(
     config.headers = {
       ...config.headers,
       Authorization: localStorage.getItem("Authorization") || "",
-      // "Content-Type": "multipart/form-data",
+      "Content-Type": "multipart/form-data",
     };
 
     return config;
@@ -21,7 +21,7 @@ request.interceptors.response.use(
   (response) => {
     const { data } = response;
     const { code } = data;
-    console.log(code);
+    // console.log(code);
 
     if (code && code > 200) {
       notification.error({
