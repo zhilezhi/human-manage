@@ -4,7 +4,7 @@ import {
   ProFormSelect,
   ProFormText,
 } from "@ant-design/pro-components";
-import { Form, message } from "antd";
+import { message } from "antd";
 import { useRef } from "react";
 import { classesStateEnum } from "@/constants/index.js";
 import {
@@ -16,7 +16,6 @@ import { getTwoYearArray } from "@/utils/tools.js";
 import { classesInsertOrUpdateApi } from "@/apis/index.js";
 
 const EditFormModal = (props) => {
-  const [form] = Form.useForm();
   const formRef = useRef();
 
   const onSubmitFormData = async (values) => {
@@ -26,9 +25,8 @@ const EditFormModal = (props) => {
 
   return (
     <ModalForm
-      title="新建"
+      title={props.info.id ? "编辑" : "新建"}
       open={props.visible}
-      form={form}
       formRef={formRef}
       layout="inline"
       grid={true}
@@ -88,6 +86,7 @@ const EditFormModal = (props) => {
         />
         <ProFormSelect
           colProps={{ xl: 10 }}
+          debounceTime={1000}
           request={teacherListData}
           name="headmasterId"
           label="班主任"
@@ -105,6 +104,7 @@ const EditFormModal = (props) => {
         <ProFormSelect.SearchSelect
           width="md"
           colProps={{ xl: 14 }}
+          debounceTime={1000}
           request={teacherListData}
           name="headmasterId1"
           label="任课老师"

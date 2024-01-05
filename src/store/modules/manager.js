@@ -6,6 +6,7 @@ const manager = createSlice({
   initialState: {
     collegeList: [], //院校列表
     majorList: [], //专业列表
+    teacherList: [], //老师列表
   },
   reducers: {
     setCollegeList(state, action) {
@@ -14,10 +15,13 @@ const manager = createSlice({
     setMajorList(state, action) {
       state.majorList = action.payload;
     },
+    setTeacherList(state, action) {
+      state.teacherList = action.payload;
+    },
   },
 });
 
-export const { setCollegeList, setMajorList } = manager.actions;
+export const { setCollegeList, setMajorList, setTeacherList } = manager.actions;
 
 export const getCollegeList = () => {
   return async (dispatch) => {

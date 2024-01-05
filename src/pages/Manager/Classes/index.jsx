@@ -135,6 +135,10 @@ const Classes = () => {
     setClassesInfo(data);
     setEditFormVisible(true);
   };
+  const onEditFormCancel = () => {
+    setEditFormVisible(false);
+    setClassesInfo({});
+  };
   return (
     <>
       <ProTable
@@ -237,9 +241,7 @@ const Classes = () => {
       <EditFormModal
         visible={editFormVisible}
         info={classesInfo}
-        onCancel={() => {
-          setEditFormVisible(false);
-        }}
+        onCancel={() => onEditFormCancel()}
         onOk={() => refreshTable()}
       />
     </>
