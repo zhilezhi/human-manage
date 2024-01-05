@@ -2,29 +2,32 @@ import { PlusOutlined } from "@ant-design/icons";
 import {
   ModalForm,
   ProForm,
-  ProFormDateRangePicker,
   ProFormSelect,
   ProFormText,
 } from "@ant-design/pro-components";
-import { Button, Form, message } from "antd";
-import { collegeListApi, majorListApi, teacherListApi } from "@/apis/index.js";
+import { Form, message } from "antd";
 import { classesStateEnum } from "@/constants/index.js";
+import {
+  classesListData,
+  majorListData,
+  teacherListData,
+} from "@/services/manager.js";
+import { getTwoYearArray } from "@/utils/tools.js";
+import { classesInsertOrUpdateApi } from "@/apis/index.js";
 
 const EditFormModal = (props) => {
   const [form] = Form.useForm();
   const formRef = useRef();
+
+  const onSubmitFormData = async (values) => {
+    await classesInsertOrUpdateApi(values);
+    message.success("提交成功");
+  };
+
   return (
     <ModalForm
-      // width={window.innerWidth * 0.3}
-      width={800}
       title="新建"
       open={props.visible}
-      trigger={
-        <Button type="primary">
-          <PlusOutlined />
-          新建表单
-        </Button>
-      }
       form={form}
       formRef={formRef}
       layout="inline"
@@ -37,27 +40,21 @@ const EditFormModal = (props) => {
         destroyOnClose: true,
         onCancel: () => props.onCancel(),
       }}
+      initialValues={props.info}
       submitTimeout={2000}
       onFinish={async (values) => {
         console.log(values);
-        message.success("提交成功");
+        // message.success("提交成功");
+        await onSubmitFormData(values);
+        props.onCancel();
+        props.onOk();
         return true;
       }}
     >
       <ProForm.Group>
         <ProFormSelect
           colProps={{ xl: 24 }}
-          request={async () => {
-            const { data } = await collegeListApi({
-              pageNum: 1,
-              pageSize: 400,
-            });
-            return data.list.map((item) => ({
-              ...item,
-              label: item.collegeName,
-              value: item.id,
-            }));
-          }}
+          request={classesListData}
           name="collegeId"
           label="院校名称"
           rules={[{ required: true, message: "请选择院校!" }]}
@@ -69,16 +66,12 @@ const EditFormModal = (props) => {
           dependencies={["collegeId"]}
           request={async (params) => {
             const { collegeId } = params;
-            if (!collegeId) return [];
             formRef.current?.setFieldsValue({
               majorId: undefined,
             });
-            const { data } = await majorListApi({ collegeId });
-            return data.list.map((item) => ({
-              ...item,
-              label: item.major,
-              value: item.id,
-            }));
+            if (!collegeId) return [];
+
+            return majorListData(collegeId);
           }}
           name="majorId"
           label="专业"
@@ -87,7 +80,7 @@ const EditFormModal = (props) => {
       </ProForm.Group>
       <ProForm.Group>
         <ProFormText
-          colProps={{ xl: 10 }}
+          colProps={{ xl: 14 }}
           name="className"
           label="班级名称"
           placeholder="请输入班级名称"
@@ -95,17 +88,7 @@ const EditFormModal = (props) => {
         />
         <ProFormSelect
           colProps={{ xl: 10 }}
-          request={async () => {
-            const { data } = await teacherListApi({
-              pageNum: 1,
-              pageSize: 400,
-            });
-            return data.list.map((item) => ({
-              ...item,
-              label: item.teacherName,
-              value: item.id,
-            }));
-          }}
+          request={teacherListData}
           name="headmasterId"
           label="班主任"
           rules={[{ required: true, message: "请选择班主任!" }]}
@@ -114,35 +97,16 @@ const EditFormModal = (props) => {
       <ProForm.Group>
         <ProFormSelect
           colProps={{ xl: 10 }}
-          request={async () => {
-            const { data } = await teacherListApi({
-              pageNum: 1,
-              pageSize: 400,
-            });
-            return data.list.map((item) => ({
-              ...item,
-              label: item.teacherName,
-              value: item.id,
-            }));
-          }}
-          name="headmasterId"
+          valueEnum={getTwoYearArray(1950)}
+          name="grade"
           label="年级"
           rules={[{ required: true, message: "请选择年级!" }]}
         />
-        <ProFormSelect
-          colProps={{ xl: 10 }}
-          request={async () => {
-            const { data } = await teacherListApi({
-              pageNum: 1,
-              pageSize: 400,
-            });
-            return data.list.map((item) => ({
-              ...item,
-              label: item.teacherName,
-              value: item.id,
-            }));
-          }}
-          name="headmasterId"
+        <ProFormSelect.SearchSelect
+          width="md"
+          colProps={{ xl: 14 }}
+          request={teacherListData}
+          name="headmasterId1"
           label="任课老师"
           rules={[{ required: true, message: "请选择任课老师!" }]}
         />
@@ -151,76 +115,18 @@ const EditFormModal = (props) => {
       <ProForm.Group>
         <ProFormSelect
           colProps={{ xl: 24 }}
-          trigger="onBlur"
-          valueEnum={classesStateEnum}
+          valueType="select"
+          fieldProps={{ options: classesStateEnum }}
           name="state"
           label="状态"
           rules={[{ required: true, message: "请选择状态!" }]}
+          // transform={(value) => {
+          //   return {
+          //     state: +value,
+          //   };
+          // }}
         />
       </ProForm.Group>
-      {/*<ProForm.Group>
-        <ProFormText
-          width="md"
-          name="name"
-          label="签约客户名称"
-          tooltip="最长为 24 位"
-          placeholder="请输入名称"
-        />
-
-        <ProFormText
-          width="md"
-          name="company"
-          label="我方公司名称"
-          placeholder="请输入名称"
-        />
-      </ProForm.Group>
-      <ProForm.Group>
-        <ProFormText
-          width="md"
-          name="contract"
-          label="合同名称"
-          placeholder="请输入名称"
-        />
-        <ProFormDateRangePicker name="contractTime" label="合同生效时间" />
-      </ProForm.Group>
-      <ProForm.Group>
-        <ProFormSelect
-          request={async () => [
-            {
-              value: "chapter",
-              label: "盖章后生效",
-            },
-          ]}
-          width="xs"
-          name="useMode"
-          label="合同约定生效方式"
-        />
-        <ProFormSelect
-          width="xs"
-          options={[
-            {
-              value: "time",
-              label: "履行完终止",
-            },
-          ]}
-          name="unusedMode"
-          label="合同约定失效效方式"
-        />
-      </ProForm.Group>
-      <ProFormText width="sm" name="id" label="主合同编号" />
-      <ProFormText
-        name="project"
-        disabled
-        label="项目名称"
-        initialValue="xxxx项目"
-      />
-      <ProFormText
-        width="xs"
-        name="mangerName"
-        disabled
-        label="商务经理"
-        initialValue="启途"
-      />*/}
     </ModalForm>
   );
 };

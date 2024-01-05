@@ -9,7 +9,7 @@ import defaultProps from "./defaultProps.jsx";
 import { Outlet, useNavigate } from "react-router-dom";
 
 export default () => {
-  const [pathname, setPathname] = useState("");
+  const [pathname, setPathname] = useState("/manager/classes");
   const navigate = useNavigate();
 
   return (
@@ -39,7 +39,8 @@ export default () => {
         menuItemRender={(item, dom) => (
           <div
             onClick={() => {
-              // setPathname(item.path || "/welcome");
+              console.log({ item });
+              setPathname(item.path);
               navigate(item.path);
             }}
           >

@@ -1,10 +1,12 @@
-export const classesStateEnum = {
-  1: {
-    text: "学习中",
+export const classesStateEnum = [
+  {
+    label: "学习中",
+    value: 1,
     status: "Processing",
   },
-  2: {
-    text: "已毕业",
+  {
+    label: "已毕业",
+    value: 2,
     status: "Success",
   },
-};
+];
