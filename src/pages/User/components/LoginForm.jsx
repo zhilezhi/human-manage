@@ -1,5 +1,4 @@
-import React from "react";
-import { Button, Form, Image, Input } from "antd";
+import { Form, Image, Input } from "antd";
 import { SafetyOutlined, UserOutlined } from "@ant-design/icons";
 import userLoginIcon from "@/assets/images/user@2x.png";
 import userLoginBtn from "@/assets/images/loginBtn.png";

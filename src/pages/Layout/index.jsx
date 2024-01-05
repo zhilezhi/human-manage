@@ -8,7 +8,7 @@ import { useState } from "react";
 import defaultProps from "./defaultProps.jsx";
 import { Outlet, useNavigate } from "react-router-dom";
 
-export default () => {
+const Layout = () => {
   const [pathname, setPathname] = useState("/manager/classes");
   const navigate = useNavigate();
 
@@ -62,3 +62,4 @@ export default () => {
     </ProConfigProvider>
   );
 };
+export default Layout;

@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { Spin } from "antd";
 
 const ClassesIndex = lazy(() => import("@/pages/Manager/Classes/index.jsx"));

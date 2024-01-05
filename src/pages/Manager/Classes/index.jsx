@@ -1,7 +1,7 @@
 import { EllipsisOutlined, PlusOutlined } from "@ant-design/icons";
 import { ProTable, TableDropdown } from "@ant-design/pro-components";
-import { Button, Dropdown, Input, message, Popconfirm } from "antd";
-import { useRef } from "react";
+import { Button, Dropdown, message, Popconfirm } from "antd";
+import { useRef, useState } from "react";
 import {
   classesDeleteApi,
   classesDetailApi,
@@ -15,7 +15,7 @@ import {
 } from "@/services/manager.js";
 import { classesStateEnum } from "@/constants/index.js";
 
-export default () => {
+const Classes = () => {
   const actionRef = useRef();
   const formRef = useRef();
   const [editFormVisible, setEditFormVisible] = useState(false);
@@ -30,7 +30,7 @@ export default () => {
     {
       title: "院校名称",
       dataIndex: "collegeId",
-      render: (text, record, _, action) => {
+      render: (text, record) => {
         return record.collegeName;
       },
       filters: true,
@@ -42,7 +42,7 @@ export default () => {
     {
       title: "专业",
       dataIndex: "majorId",
-      render: (text, record, _, action) => {
+      render: (text, record) => {
         return record.major;
       },
       filters: true,
@@ -76,7 +76,7 @@ export default () => {
     {
       title: "班主任",
       dataIndex: "headmasterId",
-      render: (text, record, _, action) => {
+      render: (text, record) => {
         return record.teacherName;
       },
       valueType: "select",
@@ -143,7 +143,7 @@ export default () => {
         formRef={formRef}
         cardBordered
         request={async (params, sort, filter) => {
-          // console.log(sort, filter, params);
+          console.log(sort, filter, params);
           const { data } = await classesListApi({
             ...params,
             pageNum: params.current,
@@ -245,3 +245,4 @@ export default () => {
     </>
   );
 };
+export default Classes;
