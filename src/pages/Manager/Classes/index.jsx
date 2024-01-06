@@ -6,6 +6,7 @@ import {
   classesDeleteApi,
   classesDetailApi,
   classesListApi,
+  classesTeacherListApi,
 } from "@/apis/index.js";
 import EditFormModal from "@/pages/Manager/Classes/components/EditFormModal.jsx";
 import {
@@ -132,7 +133,19 @@ const Classes = () => {
   };
   const onView = async ({ id }) => {
     const { data } = await classesDetailApi({ id });
-    setClassesInfo(data);
+
+    const { data: classesTeacherList } = await classesTeacherListApi({
+      classId: id,
+    });
+
+    setClassesInfo({
+      ...data,
+      classesTeacherList: classesTeacherList.list.map((item) => ({
+        ...item,
+        label: item.teacherName,
+        value: item.teacherId,
+      })),
+    });
     setEditFormVisible(true);
   };
   const onEditFormCancel = () => {
@@ -213,29 +226,6 @@ const Classes = () => {
           >
             新建
           </Button>,
-          <Dropdown
-            key="menu"
-            menu={{
-              items: [
-                {
-                  label: "1st item",
-                  key: "1",
-                },
-                {
-                  label: "2nd item",
-                  key: "1",
-                },
-                {
-                  label: "3rd item",
-                  key: "1",
-                },
-              ],
-            }}
-          >
-            <Button>
-              <EllipsisOutlined />
-            </Button>
-          </Dropdown>,
         ]}
       />
       <EditFormModal

@@ -16,6 +16,7 @@ const Layout = () => {
     <ProConfigProvider dark={false}>
       <ProLayout
         title="恒成智慧学苑"
+        logo={false}
         siderWidth={216}
         {...defaultProps}
         breadcrumbRender={(routers = []) => {

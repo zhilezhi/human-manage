@@ -73,3 +73,19 @@ export function classesTeacherInsertOrUpdateApi(data) {
     data,
   });
 }
+// 查询班级教师信息表列表功能接口
+export function classesTeacherListApi(data) {
+  return request({
+    url: "/collegeclassteacher/getList",
+    method: "POST",
+    data,
+  });
+}
+// 删除班级教师信息接口
+export function classesTeacherDeleteApi(data) {
+  return request({
+    url: "/collegeclassteacher/delInfoById",
+    method: "POST",
+    data,
+  });
+}

@@ -13,13 +13,60 @@ import {
   teacherListData,
 } from "@/services/manager.js";
 import { getTwoYearArray } from "@/utils/tools.js";
-import { classesInsertOrUpdateApi } from "@/apis/index.js";
+import {
+  classesInsertOrUpdateApi,
+  classesTeacherDeleteApi,
+  classesTeacherInsertOrUpdateApi,
+} from "@/apis/index.js";
 
 const EditFormModal = (props) => {
+  console.log({ props });
   const formRef = useRef();
 
+  //比对任课老师（产生的增加或者删除差异）
+  const compareTeacher = (teacherIds, inTeacherIds) => {
+    const addTeacherIds = [];
+    const delTeacherIds = [];
+    for (const val of inTeacherIds) {
+      if (val) {
+        if (!teacherIds.find((item) => item.value === val.value)) {
+          addTeacherIds.push(val.value);
+        }
+      }
+    }
+    for (const val of teacherIds) {
+      if (!inTeacherIds.find((item) => item.value === val.value)) {
+        delTeacherIds.push(val.id);
+      }
+    }
+    return { addTeacherIds, delTeacherIds };
+  };
+
   const onSubmitFormData = async (values) => {
-    await classesInsertOrUpdateApi(values);
+    Object.assign(values, { id: props.info.id });
+
+    const { addTeacherIds, delTeacherIds } = compareTeacher(
+      props.info.classesTeacherList,
+      values.inTeacherIds,
+    );
+    const { data } = await classesInsertOrUpdateApi(values);
+    if (data) {
+      for (const val of addTeacherIds) {
+        if (val) {
+          await classesTeacherInsertOrUpdateApi({
+            classId: data,
+            teacherId: val,
+          });
+        }
+      }
+      for (const val of delTeacherIds) {
+        if (val) {
+          await classesTeacherDeleteApi({
+            id: val,
+          });
+        }
+      }
+    }
     message.success("提交成功");
   };
 
@@ -86,7 +133,6 @@ const EditFormModal = (props) => {
         />
         <ProFormSelect
           colProps={{ xl: 10 }}
-          debounceTime={1000}
           request={teacherListData}
           name="headmasterId"
           label="班主任"
@@ -104,9 +150,9 @@ const EditFormModal = (props) => {
         <ProFormSelect.SearchSelect
           width="md"
           colProps={{ xl: 14 }}
-          debounceTime={1000}
+          initialValue={props.info.classesTeacherList ?? []}
           request={teacherListData}
-          name="headmasterId1"
+          name="inTeacherIds"
           label="任课老师"
           rules={[{ required: true, message: "请选择任课老师!" }]}
         />
