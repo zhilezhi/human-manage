@@ -15,6 +15,12 @@ export function collegeListApi(data) {
     data,
   });
 }
+
+/**
+ * 班级相关接口
+ * @param data
+ * @returns {*}
+ */
 //获取班级列表
 export function classesListApi(data) {
   return request({
@@ -65,6 +71,11 @@ export function teacherListApi(data) {
   });
 }
 
+/**
+ * 班级教师相关接口
+ * @param data
+ * @returns {*}
+ */
 //班级老师新增 or 修改
 export function classesTeacherInsertOrUpdateApi(data) {
   return request({
@@ -85,6 +96,36 @@ export function classesTeacherListApi(data) {
 export function classesTeacherDeleteApi(data) {
   return request({
     url: "/collegeclassteacher/delInfoById",
+    method: "POST",
+    data,
+  });
+}
+
+/**
+ * 课程相关接口
+ * @param data
+ * @returns {*}
+ */
+//获取课程列表
+export function classCurriculumListApi(data) {
+  return request({
+    url: "/classcurriculum/getList",
+    method: "POST",
+    data,
+  });
+}
+//课程列表新增 or 编辑
+export function classesCurriculumInsertOrUpdateApi(data) {
+  return request({
+    url: "/classcurriculum/insertOrUpdateByDto",
+    method: "POST",
+    data,
+  });
+}
+//课程详情接口
+export function classesCurriculumDetailApi(data) {
+  return request({
+    url: "/classcurriculum/getInfoById",
     method: "POST",
     data,
   });

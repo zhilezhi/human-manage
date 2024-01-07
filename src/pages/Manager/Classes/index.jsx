@@ -1,6 +1,6 @@
-import { EllipsisOutlined, PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import { ProTable, TableDropdown } from "@ant-design/pro-components";
-import { Button, Dropdown, message, Popconfirm } from "antd";
+import { Button, message, Popconfirm } from "antd";
 import { useRef, useState } from "react";
 import {
   classesDeleteApi,
@@ -16,7 +16,7 @@ import {
 } from "@/services/manager.js";
 import { classesStateEnum } from "@/constants/index.js";
 
-const Classes = () => {
+export default function Classes() {
   const actionRef = useRef();
   const formRef = useRef();
   const [editFormVisible, setEditFormVisible] = useState(false);
@@ -63,7 +63,6 @@ const Classes = () => {
     {
       title: "班级名称",
       dataIndex: "className",
-      render: (_) => <a>{_}</a>,
       // 自定义筛选项功能具体实现请参考 https://ant.design/components/table-cn/#components-table-demo-custom-filter-panel
       // filterDropdown: () => (
       //   <div style={{ padding: 8 }}>
@@ -236,5 +235,4 @@ const Classes = () => {
       />
     </>
   );
-};
-export default Classes;
+}

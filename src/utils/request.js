@@ -27,6 +27,7 @@ request.interceptors.response.use(
       notification.error({
         message: data.msg,
       });
+      return Promise.reject();
     }
 
     return data;
