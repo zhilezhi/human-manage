@@ -4,6 +4,7 @@ import {
   ProFormDigit,
   ProFormSelect,
   ProFormText,
+  ProFormUploadButton,
 } from "@ant-design/pro-components";
 import { message } from "antd";
 import { useRef } from "react";
@@ -14,16 +15,21 @@ import {
 } from "@/services/manager.js";
 import { classesCurriculumInsertOrUpdateApi } from "@/apis/index.js";
 import { debounce } from "@/utils/tools.js";
+import { baseUrl } from "@/utils/request.js";
 
 const EditFormModal = (props) => {
-  console.log({ props });
+  // console.log({ props });
   const formRef = useRef();
 
   const onSubmitFormData = async (values) => {
     Object.assign(values, {
       id: props.info.id,
       // classId: props.info.classId,
+      teachingProgram:
+        values.teachingProgram.length &&
+        values.teachingProgram.map((item) => item.response.data).join(),
     });
+    console.log({ values });
 
     await classesCurriculumInsertOrUpdateApi(values);
 
@@ -127,6 +133,18 @@ const EditFormModal = (props) => {
           rules={[{ required: true, message: "请输入总课时!" }]}
         />
       </ProForm.Group>
+      {!props.info.id ? (
+        <ProForm.Group>
+          <ProFormUploadButton
+            label="教学大纲附件"
+            name="teachingProgram"
+            max={9}
+            action={baseUrl + "/common/fileUpload"}
+          />
+        </ProForm.Group>
+      ) : (
+        ""
+      )}
     </ModalForm>
   );
 };

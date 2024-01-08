@@ -1,7 +1,9 @@
 import axios from "axios";
 import { notification } from "antd";
 
-const request = axios.create({ baseURL: "https://api.hchabj.com/hcha" });
+export const baseUrl = "https://api.hchabj.com/hcha";
+
+const request = axios.create({ baseURL: baseUrl });
 
 request.interceptors.request.use(
   (config) => {
