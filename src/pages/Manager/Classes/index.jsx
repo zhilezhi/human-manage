@@ -1,5 +1,5 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { ProTable, TableDropdown } from "@ant-design/pro-components";
+import { ProTable } from "@ant-design/pro-components";
 import { Button, message, Popconfirm } from "antd";
 import { useRef, useState } from "react";
 import {
@@ -111,14 +111,6 @@ export default function Classes() {
         >
           <a>删除</a>
         </Popconfirm>,
-        <TableDropdown
-          key="actionGroup"
-          onSelect={() => action?.reload()}
-          menus={[
-            { key: "copy", name: "复制" },
-            { key: "delete", name: "删除" },
-          ]}
-        />,
       ],
     },
   ];

@@ -1,4 +1,9 @@
-import { collegeListApi, majorListApi, teacherListApi } from "@/apis/index.js";
+import {
+  classesListApi,
+  collegeListApi,
+  majorListApi,
+  teacherListApi,
+} from "@/apis/index.js";
 import { setTeacherList } from "@/store/modules/manager.js";
 import store from "@/store/index.js";
 
@@ -22,6 +27,21 @@ export const majorListData = async (collegeId) => {
     value: item.id,
   }));
 };
+
+export const classesListDataByMajor = async (collegeId, majorId) => {
+  const { data } = await classesListApi({
+    pageNum: 1,
+    pageSize: 400,
+    collegeId,
+    majorId,
+  });
+  return data.list.map((item) => ({
+    ...item,
+    label: item.className,
+    value: item.id,
+  }));
+};
+
 export const teacherListData = async () => {
   const { manager } = store.getState();
   const { teacherList } = manager;

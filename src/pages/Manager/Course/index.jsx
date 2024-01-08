@@ -1,16 +1,18 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { ProTable, TableDropdown } from "@ant-design/pro-components";
+import { ProTable } from "@ant-design/pro-components";
 import { Button, message, Popconfirm } from "antd";
 import { useRef, useState } from "react";
 import {
   classCurriculumListApi,
   classesCurriculumDetailApi,
   classesDeleteApi,
-  classesDetailApi,
-  classesTeacherListApi,
 } from "@/apis/index.js";
 import EditFormModal from "@/pages/Manager/Course/components/EditFormModal.jsx";
-import { classesListData, majorListData } from "@/services/manager.js";
+import {
+  classesListData,
+  classesListDataByMajor,
+  majorListData,
+} from "@/services/manager.js";
 
 export default function Course() {
   const actionRef = useRef();
@@ -58,19 +60,33 @@ export default function Course() {
     },
     {
       title: "班级名称",
-      dataIndex: "className",
-      // render: (_) => <a>{_}</a>,
+      dataIndex: "classId",
+      render: (text, record) => {
+        return record.className;
+      },
+      valueType: "select",
+      dependencies: ["collegeId", "majorId"],
+      request: async (params) => {
+        console.log({ params });
+        const { collegeId, majorId } = params;
+        formRef.current?.setFieldsValue({
+          classId: undefined,
+        });
+        if (!collegeId || !majorId) return [];
+        return classesListDataByMajor(collegeId, majorId);
+      },
     },
     {
       title: "课程名称",
       dataIndex: "courseName",
+      hideInSearch: true,
     },
 
     {
       title: "操作",
       valueType: "option",
       key: "option",
-      render: (text, record, _, action) => [
+      render: (text, record) => [
         <a key="editable" onClick={() => onView(record)}>
           编辑
         </a>,
@@ -82,14 +98,6 @@ export default function Course() {
         >
           <a>删除</a>
         </Popconfirm>,
-        <TableDropdown
-          key="actionGroup"
-          onSelect={() => action?.reload()}
-          menus={[
-            { key: "copy", name: "复制" },
-            { key: "delete", name: "删除" },
-          ]}
-        />,
       ],
     },
   ];
