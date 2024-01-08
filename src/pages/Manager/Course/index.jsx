@@ -4,6 +4,7 @@ import { Button, message, Popconfirm } from "antd";
 import { useRef, useState } from "react";
 import {
   classCurriculumListApi,
+  classesCurriculumDeleteApi,
   classesCurriculumDetailApi,
   classesDeleteApi,
 } from "@/apis/index.js";
@@ -105,7 +106,7 @@ export default function Course() {
   const refreshTable = () => actionRef.current?.reload();
 
   const onDelete = async ({ id }) => {
-    await classesDeleteApi({ id });
+    await classesCurriculumDeleteApi({ id });
     message.success("删除成功");
     refreshTable();
   };

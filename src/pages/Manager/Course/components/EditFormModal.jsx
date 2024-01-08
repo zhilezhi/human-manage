@@ -7,7 +7,11 @@ import {
 } from "@ant-design/pro-components";
 import { message } from "antd";
 import { useRef } from "react";
-import { classesListData, majorListData } from "@/services/manager.js";
+import {
+  classesListData,
+  classesListDataByMajor,
+  majorListData,
+} from "@/services/manager.js";
 import { classesCurriculumInsertOrUpdateApi } from "@/apis/index.js";
 import { debounce } from "@/utils/tools.js";
 
@@ -18,7 +22,7 @@ const EditFormModal = (props) => {
   const onSubmitFormData = async (values) => {
     Object.assign(values, {
       id: props.info.id,
-      classId: props.info.classId,
+      // classId: props.info.classId,
     });
 
     await classesCurriculumInsertOrUpdateApi(values);
@@ -78,12 +82,31 @@ const EditFormModal = (props) => {
         />
       </ProForm.Group>
       <ProForm.Group>
-        <ProFormText
+        {/*        <ProFormText
           colProps={{ xl: 24 }}
           name="className"
           label="班级名称"
           placeholder="请输入班级名称"
           rules={[{ required: true, message: "请输入班级名称!" }]}
+        />*/}
+
+        <ProFormSelect
+          colProps={{ xl: 24 }}
+          dependencies={["collegeId", "majorId"]}
+          request={async (params) => {
+            const { collegeId, majorId } = params;
+
+            if (!collegeId || !majorId) {
+              formRef.current?.setFieldsValue({
+                classId: undefined,
+              });
+              return [];
+            }
+            return classesListDataByMajor(collegeId, majorId);
+          }}
+          name="classId"
+          label="班级名称"
+          rules={[{ required: true, message: "请选择班级名称!" }]}
         />
       </ProForm.Group>
       <ProForm.Group>

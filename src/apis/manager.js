@@ -130,3 +130,11 @@ export function classesCurriculumDetailApi(data) {
     data,
   });
 }
+//删除课程接口
+export function classesCurriculumDeleteApi(data) {
+  return request({
+    url: "/classcurriculum/delInfoById",
+    method: "POST",
+    data,
+  });
+}
