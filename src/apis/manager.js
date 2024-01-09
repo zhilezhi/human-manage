@@ -138,3 +138,23 @@ export function classesCurriculumDeleteApi(data) {
     data,
   });
 }
+
+/**
+ * 学生相关掊口
+ */
+//学生列表接口
+export function studentListApi(data) {
+  return request({
+    url: "/student/getList",
+    method: "POST",
+    data,
+  });
+}
+//学生新增 or 编辑
+export function studentInsertOrUpdateApi(data) {
+  return request({
+    url: "/student/insertOrUpdateByDto",
+    method: "POST",
+    data,
+  });
+}

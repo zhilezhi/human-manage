@@ -23,8 +23,9 @@ export default function Course() {
 
   const tableColumns = [
     {
+      title: "序号",
       dataIndex: "index",
-      valueType: "indexBorder",
+      valueType: "index",
       width: 48,
     },
     {

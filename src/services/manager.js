@@ -1,4 +1,5 @@
 import {
+  classesDetailApi,
   classesListApi,
   collegeListApi,
   majorListApi,
