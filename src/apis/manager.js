@@ -158,3 +158,35 @@ export function studentInsertOrUpdateApi(data) {
     data,
   });
 }
+//删除学生接口
+export function studentDeleteApi(data) {
+  return request({
+    url: "/student/delInfoById",
+    method: "POST",
+    data,
+  });
+}
+//学生工作记录新增 or 编辑
+export function studentWorkExperienceInsertOrUpdateApi(data) {
+  return request({
+    url: "/studentworkexperience/insertOrUpdate",
+    method: "POST",
+    data,
+  });
+}
+//学生就业经历列表
+export function studentWorkExperienceListApi(data) {
+  return request({
+    url: "/studentworkexperience/getList",
+    method: "POST",
+    data,
+  });
+}
+//学生详情接口
+export function studentDetailApi(data) {
+  return request({
+    url: "/student/getInfoById",
+    method: "POST",
+    data,
+  });
+}

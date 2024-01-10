@@ -16,7 +16,11 @@ import {
   classesListDataByMajor,
   majorListData,
 } from "@/services/manager.js";
-import { classesDetailApi, studentInsertOrUpdateApi } from "@/apis/index.js";
+import {
+  classesDetailApi,
+  studentInsertOrUpdateApi,
+  studentWorkExperienceInsertOrUpdateApi,
+} from "@/apis/index.js";
 import { debounce } from "@/utils/tools.js";
 import { baseUrl } from "@/utils/request.js";
 import { classesStateEnum, genderEnum, nationEnum } from "@/constants/index.js";
@@ -45,15 +49,20 @@ export default function EditFormModal(props) {
   };
 
   const onSubmitFormData = async (values) => {
-    // Object.assign(values, {
-    //   id: props.info.id,
-    //   // classId: props.info.classId,
-    //   teachingProgram:
-    //     values.teachingProgram.length &&
-    //     values.teachingProgram.map((item) => item.response.data).join(),
-    // });
-
-    await studentInsertOrUpdateApi(values);
+    const { data } = await studentInsertOrUpdateApi({
+      ...values,
+      id: props.info.id,
+      studentWorkExperienceList: undefined,
+    });
+    if (Array.isArray(values.studentWorkExperienceList)) {
+      for (let i = 0; i < values.studentWorkExperienceList.length; i++) {
+        const item = values.studentWorkExperienceList[i];
+        await studentWorkExperienceInsertOrUpdateApi({
+          ...item,
+          studentId: data,
+        });
+      }
+    }
 
     message.success("提交成功");
   };

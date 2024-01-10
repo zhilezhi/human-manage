@@ -100,7 +100,7 @@ export default function Classes() {
       title: "操作",
       valueType: "option",
       key: "option",
-      render: (text, record, _, action) => [
+      render: (text, record) => [
         <a key="editable" onClick={() => onView(record)}>
           编辑
         </a>,

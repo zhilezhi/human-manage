@@ -3,9 +3,11 @@ import { ProTable } from "@ant-design/pro-components";
 import { Button, message, Popconfirm } from "antd";
 import { useRef, useState } from "react";
 import {
-  classesCurriculumDeleteApi,
   classesCurriculumDetailApi,
+  studentDeleteApi,
+  studentDetailApi,
   studentListApi,
+  studentWorkExperienceListApi,
 } from "@/apis/index.js";
 import EditFormModal from "@/pages/Manager/Student/components/EditFormModal.jsx";
 import {
@@ -122,14 +124,24 @@ export default function Student() {
   const refreshTable = () => actionRef.current?.reload();
 
   const onDelete = async ({ id }) => {
-    await classesCurriculumDeleteApi({ id });
+    await studentDeleteApi({ id });
     message.success("删除成功");
     refreshTable();
   };
   const onView = async ({ id }) => {
-    const { data } = await classesCurriculumDetailApi({ id });
+    const { data } = await studentDetailApi({ id });
 
-    setClassesInfo(data);
+    const { data: studentWorkExperienceListData } =
+      await studentWorkExperienceListApi({
+        studentId: id,
+        pageNum: 1,
+        pageSize: 400,
+      });
+
+    setClassesInfo({
+      ...data,
+      studentWorkExperienceList: studentWorkExperienceListData.list,
+    });
     setEditFormVisible(true);
   };
   const onEditFormCancel = () => {
