@@ -9,8 +9,8 @@ import {
   ProFormTextArea,
   ProFormUploadButton,
 } from "@ant-design/pro-components";
-import { Form, message } from "antd";
-import { useRef, useEffect } from "react";
+import { message } from "antd";
+import { useRef } from "react";
 import {
   classesListData,
   classesListDataByMajor,
@@ -26,17 +26,8 @@ import { baseUrl } from "@/utils/request.js";
 import { classesStateEnum, genderEnum, nationEnum } from "@/constants/index.js";
 
 export default function EditFormModal(props) {
+  console.log(">>>>>>>>>>>>>", props);
   const formRef = useRef();
-  const [form] = Form.useForm();
-  const classId = Form.useWatch("classId", form);
-
-  useEffect(() => {
-    if (classId) classesInfoDataById({ id: classId });
-    else
-      formRef.current?.setFieldsValue({
-        grade: undefined,
-      });
-  }, [classId]);
 
   const classesInfoDataById = async ({ id }) => {
     const { data } = await classesDetailApi({
@@ -72,7 +63,6 @@ export default function EditFormModal(props) {
       title={props.info.id ? "编辑" : "新建"}
       open={props.visible}
       formRef={formRef}
-      form={form}
       layout="inline"
       grid={true}
       rowProps={{
@@ -91,6 +81,13 @@ export default function EditFormModal(props) {
         props.onOk();
         return true;
       })}
+      onValuesChange={({ classId }) => {
+        if (classId) classesInfoDataById({ id: classId });
+        else
+          formRef.current?.setFieldsValue({
+            grade: undefined,
+          });
+      }}
     >
       <ProForm.Group>
         <ProFormText
@@ -272,9 +269,7 @@ export default function EditFormModal(props) {
             </ProCard>
           )}
           // creatorRecord={{ name: "", items: [{ name: "" }] }}
-          // initialValue={[
-          //   { name: "颜色", items: [{ name: "红" }, { name: "黄" }] },
-          // ]}
+          // initialValue={props.info.studentWorkExperienceList}
         >
           <ProForm.Group>
             <ProFormText

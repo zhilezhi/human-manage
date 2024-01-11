@@ -3,7 +3,6 @@ import { ProTable } from "@ant-design/pro-components";
 import { Button, message, Popconfirm } from "antd";
 import { useRef, useState } from "react";
 import {
-  classesCurriculumDetailApi,
   studentDeleteApi,
   studentDetailApi,
   studentListApi,

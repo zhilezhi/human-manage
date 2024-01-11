@@ -6,7 +6,6 @@ import {
   classCurriculumListApi,
   classesCurriculumDeleteApi,
   classesCurriculumDetailApi,
-  classesDeleteApi,
 } from "@/apis/index.js";
 import EditFormModal from "@/pages/Manager/Course/components/EditFormModal.jsx";
 import {
