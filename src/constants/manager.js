@@ -1,3 +1,5 @@
+import { trainingActivityListApi } from "@/apis/index.js";
+
 export const classesStateEnum = [
   {
     label: "学习中",
@@ -244,5 +246,66 @@ export const nationEnum = [
   {
     label: "基诺族",
     value: "基诺族",
+  },
+];
+//活动状态
+export const activityStateEnum = [
+  {
+    label: "进行中",
+    value: 2,
+  },
+  {
+    label: "已完成",
+    value: 3,
+  },
+  {
+    label: "已取消",
+    value: 4,
+  },
+];
+//活动类型
+export const activityTypeEnum = [
+  {
+    label: "项目实训",
+    value: 1,
+  },
+  {
+    label: "活动",
+    value: 2,
+  },
+  {
+    label: "就业/实习",
+    value: 3,
+  },
+];
+//项目周期
+export const attendancePeriodEnum = [
+  {
+    label: "每周一",
+    value: 1,
+  },
+  {
+    label: "每周二",
+    value: 2,
+  },
+  {
+    label: "每周三",
+    value: 3,
+  },
+  {
+    label: "每周四",
+    value: 4,
+  },
+  {
+    label: "每周五",
+    value: 5,
+  },
+  {
+    label: "每周六",
+    value: 6,
+  },
+  {
+    label: "每周日",
+    value: 7,
   },
 ];

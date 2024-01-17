@@ -26,7 +26,6 @@ import { baseUrl } from "@/utils/request.js";
 import { classesStateEnum, genderEnum, nationEnum } from "@/constants/index.js";
 
 export default function EditFormModal(props) {
-  console.log(">>>>>>>>>>>>>", props);
   const formRef = useRef();
 
   const classesInfoDataById = async ({ id }) => {

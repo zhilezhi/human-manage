@@ -190,3 +190,39 @@ export function studentDetailApi(data) {
     data,
   });
 }
+
+/**
+ * 实训活动相关接口
+ */
+//实训列表接口
+export function trainingActivityListApi(data) {
+  return request({
+    url: "/trainingactivity/getList",
+    method: "POST",
+    data,
+  });
+}
+//实训新增接口
+export function trainingActivityInsertOrUpdateApi(data) {
+  return request({
+    url: "/trainingactivity/insertOrUpdateTrainingByDto",
+    method: "POST",
+    data,
+  });
+}
+//实训详情接口
+export function trainingActivityDetailApi(data) {
+  return request({
+    url: "/trainingactivity/getInfoById",
+    method: "POST",
+    data,
+  });
+}
+//实训删除接口
+export function trainingActivityDeleteApi(data) {
+  return request({
+    url: "/trainingactivity/delInfoById",
+    method: "POST",
+    data,
+  });
+}
