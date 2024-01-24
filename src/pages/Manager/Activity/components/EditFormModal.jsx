@@ -1,14 +1,11 @@
 import {
   ModalForm,
-  ProCard,
   ProForm,
   ProFormDateRangePicker,
   ProFormDigit,
-  ProFormFieldSet,
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
-  ProFormTimePicker,
 } from "@ant-design/pro-components";
 import { message } from "antd";
 import { useRef } from "react";
@@ -18,12 +15,9 @@ import {
   majorListData,
   teacherListData,
 } from "@/services/manager.js";
-import {
-  classesDetailApi,
-  trainingActivityInsertOrUpdateApi,
-} from "@/apis/index.js";
+import { activityInsertOrUpdateApi, classesDetailApi } from "@/apis/index.js";
 import { debounce } from "@/utils/tools.js";
-import { activityStateEnum, attendancePeriodEnum } from "@/constants/index.js";
+import { activityStateEnum } from "@/constants/index.js";
 import dayjs from "dayjs";
 
 export default function EditFormModal(props) {
@@ -40,11 +34,10 @@ export default function EditFormModal(props) {
   };
 
   const onSubmitFormData = async (values) => {
-    // console.log("values>>>>>>>>>", values);
-    await trainingActivityInsertOrUpdateApi({
+    await activityInsertOrUpdateApi({
       ...values,
       id: props.info.id,
-      type: 1,
+      type: 2,
     });
     message.success("提交成功");
   };
@@ -92,7 +85,7 @@ export default function EditFormModal(props) {
       <ProForm.Group>
         <ProFormText
           colProps={{ xl: 24 }}
-          name="enterprisesName"
+          name="theme"
           label="活动主题"
           placeholder="请输入活动主题"
           rules={[{ required: true, message: "请输入活动主题!" }]}
@@ -106,15 +99,15 @@ export default function EditFormModal(props) {
             options: [
               {
                 label: "技能大赛",
-                value: 1,
+                value: "1",
               },
               {
                 label: "其他",
-                value: 2,
+                value: "2",
               },
             ],
           }}
-          name="state"
+          name="activityType"
           label="活动类型"
           rules={[{ required: true, message: "请选择活动类型!" }]}
         />
@@ -161,7 +154,7 @@ export default function EditFormModal(props) {
       </ProForm.Group>
       <ProForm.Group>
         <ProFormDigit
-          name="totalClassHours"
+          name="studentNum"
           label="学生人数"
           colProps={{ xl: 24 }}
           placeholder="请输入学生人数"
@@ -227,7 +220,7 @@ export default function EditFormModal(props) {
               },
             ],
           }}
-          name="state"
+          name="participation"
           label="参与方式"
           rules={[{ required: true, message: "请选择参与方式!" }]}
         />

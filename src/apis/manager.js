@@ -192,7 +192,7 @@ export function studentDetailApi(data) {
 }
 
 /**
- * 实训活动相关接口
+ * 实训相关接口
  */
 //实训列表接口
 export function trainingActivityListApi(data) {
@@ -222,6 +222,17 @@ export function trainingActivityDetailApi(data) {
 export function trainingActivityDeleteApi(data) {
   return request({
     url: "/trainingactivity/delInfoById",
+    method: "POST",
+    data,
+  });
+}
+
+/**
+ * 活动相关接口
+ */
+export function activityInsertOrUpdateApi(data) {
+  return request({
+    url: "/trainingactivity/insertOrUpdateActivityByDto",
     method: "POST",
     data,
   });
