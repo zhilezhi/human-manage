@@ -43,6 +43,9 @@ export default function EditFormModal(props) {
       ...values,
       id: props.info.id,
       studentWorkExperienceList: undefined,
+      photo:
+        values.photo.length &&
+        values.photo.map((item) => item.response.data).join(),
     });
     if (Array.isArray(values.studentWorkExperienceList)) {
       for (let i = 0; i < values.studentWorkExperienceList.length; i++) {
