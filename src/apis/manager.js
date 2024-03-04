@@ -237,3 +237,39 @@ export function activityInsertOrUpdateApi(data) {
     data,
   });
 }
+
+/**
+ * 录播课相关接口
+ */
+//录播课列表
+export function recordedCurriculumListApi(data) {
+  return request({
+    url: "/recordedcurriculum/getList",
+    method: "POST",
+    data,
+  });
+}
+//录播课新增或者编辑
+export function recordedCurriculumInsertOrUpdateApi(data) {
+  return request({
+    url: "/recordedcurriculum/insertOrUpdate",
+    method: "POST",
+    data,
+  });
+}
+//录播课删除
+export function recordedCurriculumDeleteApi(data) {
+  return request({
+    url: "/recordedcurriculum/delInfoById",
+    method: "POST",
+    data,
+  });
+}
+//录播课详情
+export function recordedCurriculumDetailApi(data) {
+  return request({
+    url: "/recordedcurriculum/getInfoById",
+    method: "POST",
+    data,
+  });
+}

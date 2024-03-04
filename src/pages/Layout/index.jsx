@@ -34,8 +34,8 @@ const Layout = () => {
         }}
         avatarProps={{
           src: "https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg",
-          title: "七妮妮",
-          size: "small",
+          title: "user001",
+          size: "medium",
         }}
         menuItemRender={(item, dom) => (
           <div
